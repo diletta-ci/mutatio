@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-    <h1>Mutatio</h1>
-    <h3>UI Photo Editor</h3>
+    <h1 class="heading-primary">Mutatio</h1>
+    <h2 class="heading-secondary">UI Photo Editor</h2>
   </div>
 </template>
 
@@ -11,6 +11,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
