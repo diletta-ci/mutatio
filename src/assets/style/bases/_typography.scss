@@ -7,17 +7,34 @@ body {
 
 .heading-primary {
     font-family: 'Amatic SC', cursive;
-    font-size: 9rem;
+    font-size: 10.5rem;
     color: $primary-color-dark;
     text-align: center;
+}
+
+.heading-primary__light {
+    @extend .heading-primary;
+    color: $primary-color-text;
+    padding: 2rem;
 }
 
 .heading-secondary {
     color: $secondary-text-color;
     text-align: center;
-    font-size: 3.5rem;
+    font-size: 3rem;
+    padding: 2rem 0 3rem;
 }
 
-p {
-    font-size: 2rem;
+.heading-secondary__light {
+    @extend .heading-secondary;
+    color: $primary-background;
+}
+
+.input-primary {
+    height: 6rem;
+    width: 80%;
+    padding: 1rem;
+    border-radius: 10rem;
+    box-shadow: 0 1px 2px rgba(54, 54, 54, 0.46);
+    border: none;
 }
