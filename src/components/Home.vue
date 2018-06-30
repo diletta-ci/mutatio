@@ -6,7 +6,7 @@
     </section>
     <section class="editor">
       <h2 class="heading-secondary">Edit your Photo</h2>
-      <input v-model="sentence" class="input-primary" placeholder="Sentence of your photo">
+      <text-editor></text-editor>
       <div class="editor-photo-container">
         <div class="editor-photo-container__frame">
           <p class="user-text">{{ sentence }}</p>
