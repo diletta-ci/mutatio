@@ -30,6 +30,12 @@ body {
     color: $primary-background;
 }
 
+.title-primary {
+    font-family: 'Amatic SC', cursive;
+    font-size: 3rem;
+    color: $primary-color-dark;
+}
+
 .input-primary {
     height: 6rem;
     width: 80%;

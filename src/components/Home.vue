@@ -6,12 +6,30 @@
     </section>
     <section class="editor">
       <h2 class="heading-secondary">Edit your Photo</h2>
-      <text-editor></text-editor>
-      <div class="editor-photo-container">
-        <div class="editor-photo-container__frame">
-          <p class="user-text">{{ sentence }}</p>
-        </div>
+      <div class="controls">
+        <form class="controls-align__horizontal">
+          <h3 class="title-primary">Horizontal Text Align</h3>
+          <input type="radio" id="left" value="left" v-model="textAlign">
+          <label for="left">Left</label><br>
+          <input type="radio" id="center" value="center" v-model="textAlign">
+          <label for="center">Center</label><br>
+          <input type="radio" id="right" value="right" v-model="textAlign">
+          <label for="right">Right</label><br>
+        </form>
+        <form class="controls-align__vertical">
+          <h3 class="title-primary">Vertical Text Align</h3>
+          <input type="radio" id="start" value="flex-start" v-model="itemAlign">
+          <label for="start">Start</label><br>
+          <input type="radio" id="center" value="center" v-model="itemAlign">
+          <label for="center">Center</label><br>
+          <input type="radio" id="bottom" value="flex-end" v-model="itemAlign">
+          <label for="bottom">Bottom</label><br>
+        </form>
       </div>
+      <text-editor
+        :align="textAlign"
+        :vertAlign="itemAlign"
+        ></text-editor>
     </section>
   </div>
 </template>
@@ -21,7 +39,9 @@ export default {
   name: 'Home',
   data () {
     return {
-      sentence: ''
+      sentence: '',
+      textAlign: '',
+      itemAlign: ''
     }
   }
 }
@@ -35,29 +55,13 @@ export default {
 }
 
 .editor {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin: 5rem;
+  height: 800px;
+  padding-top: 10rem;
 
-  &-photo-container {
-    padding: 2rem;
-  
-    &__frame {
-      height: 400px;
-      width: 400px;
-      background: {
-        image: url('../assets/media/images/ananas.jpeg');
-        size: cover;
-        position: center;
-      }
-      box-shadow: 0 2px 8px rgba(54, 54, 54, 0.46);
-      .user-text {
-        color: $primary-color-text;
-        text-align: center;
-      }
-    }
+  .controls {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 4rem;
   }
 }
 </style>
