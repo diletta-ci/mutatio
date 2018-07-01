@@ -25,11 +25,25 @@
           <input type="radio" id="bottom" value="flex-end" v-model="itemAlign">
           <label for="bottom">Bottom</label><br>
         </form>
+        <form class="controls-color__text">
+          <h3 class="title-primary">Text Color</h3>
+          <input type="color" id="textColor" value="textColor" v-model="color.textColor">
+          <label for="textColor">Choose the text color</label><br>
+        </form>
+        <form class="controls-color__background">
+          <h3 class="title-primary">Background Color</h3>
+          <input type="color" id="darker" value="darker" v-model="color.bgDarkerColor">
+          <label for="darker">Darker</label><br>
+          <input type="color" id="lighter" value="lighter" v-model="color.bgLighterColor">
+          <label for="lighter">Lighter</label><br>
+        </form>
       </div>
       <text-editor
         :align="textAlign"
         :vertAlign="itemAlign"
+        :color="color"
         ></text-editor>
+      <trello-board></trello-board>
     </section>
   </div>
 </template>
@@ -41,7 +55,11 @@ export default {
     return {
       sentence: '',
       textAlign: '',
-      itemAlign: ''
+      itemAlign: '',
+      color: {
+        bgDarkerColor: '',
+        bgLighterColor: ''
+      }
     }
   }
 }

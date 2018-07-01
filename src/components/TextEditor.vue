@@ -6,9 +6,17 @@
             rows="10"
             class="text-editor__input"
             placeholder="Write here your senteces..."
+            :color="color" 
             >
         </textarea>
-        <preview v-bind:style="{ textAlign: align, alignItems: vertAlign }" :content="text"></preview>
+        <preview 
+            v-bind:style="{ 
+                textAlign: align, 
+                alignItems: vertAlign,
+                }" 
+            :content="text"
+            >
+        </preview>
     </div>
 </template>
 
@@ -23,6 +31,10 @@ import Preview from './Preview'
             vertAlign: {
                 type: String,
                 default: ''
+            },
+            color: {
+                type: Object,
+                default: {}
             }
         },
         component: {
@@ -44,6 +56,7 @@ import Preview from './Preview'
     flex-direction: row;
     justify-content: space-around;
     width: 100%;
+    margin-bottom: 10rem;
     &__input {
         border: 0;
         font: inherit;
@@ -54,8 +67,8 @@ import Preview from './Preview'
     }
 
     &__input {
-        width: 50%;
-        height: 400px;
+        width: 30%;
+        height: 600px;
         padding: 20px;
         &::placeholder {
             color: white;
@@ -64,14 +77,13 @@ import Preview from './Preview'
 
     &__photo-container {
         display: grid;
-        height: 400px;
-        width: 400px;
+        height: 600px;
+        width: 600px;
         padding: 20px;
-        background: $primary-color-light;
         background-image: linear-gradient(
             to right bottom, 
-            rgba($primary-color-light, 0.8), 
-            rgba($primary-color-dark, 0.8)),
+            rgba($primary-color-text, 0.8), 
+            rgba($primary-text-color, 0.8)),
             url('../assets/media/images/ananas.jpeg');
         background: {
             size: cover;
