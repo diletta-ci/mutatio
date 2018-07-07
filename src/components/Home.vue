@@ -27,21 +27,28 @@
         </form>
         <form class="controls-color__text">
           <h3 class="title-primary">Text Color</h3>
-          <input type="color" id="textColor" value="textColor" v-model="color.textColor">
+          <input type="color" id="textColor" v-model="color.textColor">
           <label for="textColor">Choose the text color</label><br>
         </form>
-        <form class="controls-color__background">
-          <h3 class="title-primary">Background Color</h3>
-          <input type="color" id="darker" value="darker" v-model="color.bgDarkerColor">
-          <label for="darker">Darker</label><br>
-          <input type="color" id="lighter" value="lighter" v-model="color.bgLighterColor">
-          <label for="lighter">Lighter</label><br>
+        <form class="controls-color__gradient">
+          <h3 class="title-primary">Gradient Background</h3>
+          <div class="picker">
+          <button v-on:click="changeColor" id="gradient__1" class="picker--gradient gradient__1"></button>
+          <button v-on:click="changeColor" id="gradient__2" class="picker--gradient gradient__2"></button>
+          <button v-on:click="changeColor" id="gradient__3" class="picker--gradient gradient__3"></button>
+          </div>
+          <div class="picker">
+          <button v-on:click="changeColor" id="gradient__4" class="picker--gradient gradient__4"></button>
+          <button v-on:click="changeColor" id="gradient__5" class="picker--gradient gradient__5"></button>
+          <button v-on:click="changeColor" id="gradient__6" class="picker--gradient gradient__6"></button>
+          </div>
         </form>
       </div>
       <text-editor
         :align="textAlign"
         :vertAlign="itemAlign"
         :color="color"
+        :class="color.gradient"
         ></text-editor>
       <trello-board></trello-board>
     </section>
@@ -57,10 +64,15 @@ export default {
       textAlign: '',
       itemAlign: '',
       color: {
-        bgDarkerColor: '',
-        bgLighterColor: ''
+        textColor: '',
+        gradient: ''
       }
     }
+  },
+  methods: {
+    changeColor(event) {
+      this.color.gradient = event.currentTarget.id;
+    },
   }
 }
 </script>
@@ -80,6 +92,37 @@ export default {
     display: flex;
     justify-content: space-around;
     padding-bottom: 4rem;
+
+    .picker {
+      display: flex;
+      justify-content: space-between;
+      &--gradient {
+        width: 50px;
+        height: 50px;
+        margin: 0.5rem;
+      } 
+    }
+
+    .gradient {
+      &__1 {
+        background: linear-gradient(pink, orange);
+      }
+      &__2 {
+        background: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+      }
+      &__3 {
+        background: linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);
+      }
+      &__4 {
+        background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
+      }
+      &__5 {
+        background-image: linear-gradient(19deg, #3EECAC 0%, #EE74E1 100%);
+      }
+      &__6 {
+        background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
+      }
+    }
   }
 }
 </style>
