@@ -1,5 +1,6 @@
 <template>
     <div class="text-editor">
+        <img :src="image" />
         <textarea 
             v-model="text"
             cols="30" 
@@ -8,16 +9,19 @@
             placeholder="Write here your senteces..."
             >
         </textarea>
-        <preview 
-            :style="{ 
+        <div
+            :style="{
                 textAlign: align, 
                 alignItems: vertAlign,
                 color: color.textColor
-                }" 
-            :content="text"
-            :class="color.gradient"
-            >
-        </preview>
+                }" >
+            <preview 
+                :style="style"
+                :content="text"
+                :class="color.gradient"
+                >
+            </preview>
+        </div>
     </div>
 </template>
 
@@ -36,7 +40,8 @@ import Preview from './Preview'
             color: {
                 type: Object,
                 default: {}
-            }
+            },
+            image: ''
         },
         component: {
             'preview': Preview
@@ -45,12 +50,21 @@ import Preview from './Preview'
             return {
                 text: ''
             }
+        },
+        computed: {
+            style() {    
+                return `background-image: url(${this.image});`;
+            }
         }
     }
 </script>
 
 <style lang="scss" scoped>
 @import '../assets/style/abstracts/_variables.scss';
+
+img {
+  display: none;
+}
 
 .text-editor {
     display: flex;

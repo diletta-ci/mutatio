@@ -6,6 +6,15 @@
     </section>
     <section class="editor">
       <h2 class="heading-secondary">Edit your Photo</h2>
+      <div v-if="!image">
+          <form class="controls-photoupload" action=""> 
+          <label for="fileupload">Select a photo to edit</label>
+          <input type="file" @change="onFileChange" name="fileupload" value="fileupload" id="fileupload"> 
+        </form>
+      </div>
+      <div v-else>
+        <button @click="removeImage">Remove image</button>
+      </div>
       <div class="controls">
         <form class="controls-align__horizontal">
           <h3 class="title-primary">Horizontal Text Align</h3>
@@ -49,7 +58,10 @@
         :vertAlign="itemAlign"
         :color="color"
         :class="color.gradient"
-        ></text-editor>
+        :image="image"
+        >
+          
+        </text-editor>
       <trello-board></trello-board>
     </section>
   </div>
@@ -66,13 +78,33 @@ export default {
       color: {
         textColor: '',
         gradient: ''
-      }
+      },
+      image: ''
     }
   },
   methods: {
     changeColor(event) {
       this.color.gradient = event.currentTarget.id;
     },
+    onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    removeImage: function (e) {
+      this.image = '';
+    }
   }
 }
 </script>
