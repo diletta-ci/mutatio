@@ -15,6 +15,15 @@
       <div v-else class="controls">
         <button @click="removeImage">Remove image</button>
       </div>
+      <div v-if="!watermark" class="controls">
+        <form class="controls-watermark" action="">
+          <label for="watermark">Watermark</label><br />
+          <input type="file" @change="onFileChange" name="watermark" id="watermark">
+        </form>
+      </div>
+      <div v-else class="controls">
+        <button @click="removeWatermark">Remove Watermark</button>
+      </div>
       <div class="controls">
         <form class="controls-align__horizontal">
           <h3 class="title-primary">Horizontal Text Align</h3>
@@ -58,6 +67,7 @@
         :color="color"
         :gradient="color.gradient"
         :image="image"
+        :watermark="watermark"
         >
           
         </text-editor>
@@ -79,6 +89,7 @@ export default {
         gradient: ''
       },
       image: '',
+      watermark: '',
       gradients: [
         'rgba(0, 151, 167, 0.6), rgba(255, 165, 0, 0.6)',
         '19deg, rgba(33, 212, 253, 0.6) 0%, rgba(183, 33, 255, 0.6) 100%',
@@ -94,23 +105,44 @@ export default {
       this.color.gradient = gradient;
     },
     onFileChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
+      const file = e.srcElement.id;
+      const files = e.target.files || e.dataTransfer.files;
+      
       if (!files.length)
         return;
-      this.createImage(files[0]);
+
+      if(file === 'fileupload') {
+        this.createBackgroundImage(files[0]);
+      } else if (file === 'watermark') {
+        this.createBackgroundWatermark(files[0]);
+      }
+      
     },
-    createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
+    createBackgroundImage(file) {
+      const image = new Image();
+      const reader = new FileReader();
+      const vm = this;
 
       reader.onload = (e) => {
         vm.image = e.target.result;
       };
       reader.readAsDataURL(file);
     },
+    createBackgroundWatermark(file) {
+      const watermark = new Image();
+      const reader = new FileReader();
+      const vm = this;
+
+      reader.onload = (e) => {
+        vm.watermark = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
     removeImage: function (e) {
       this.image = '';
+    },
+    removeWatermark: function (e) {
+      this.watermark = '';
     }
   }
 }

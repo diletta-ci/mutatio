@@ -1,6 +1,6 @@
 <template>
     <div class="text-editor">
-        <img :src="image" />
+        <img :src="image" class="image-main" />
         <textarea 
             v-model="text"
             cols="30" 
@@ -21,6 +21,7 @@
                 :style="style"
                 :content="text"
             >
+                <img :src="watermark" class="image-watermark" />
             </preview>
         </div>
     </div>
@@ -43,6 +44,7 @@ import Preview from './Preview'
                 default: {}
             },
             image: '',
+            watermark: '',
             gradient: ''
         },
         component: {
@@ -68,10 +70,6 @@ import Preview from './Preview'
 <style lang="scss" scoped>
 @import '../assets/style/abstracts/_variables.scss';
 
-img {
-  display: none;
-}
-
 .text-editor {
     display: flex;
     flex-direction: row;
@@ -85,9 +83,6 @@ img {
         resize: none;
         background: $primary-color-dark;
         color: $primary-color-text;
-    }
-
-    &__input {
         width: 30%;
         height: 600px;
         padding: 20px;
@@ -106,6 +101,10 @@ img {
             position: center;
         }
         box-shadow: 0 2px 8px rgba(54, 54, 54, 0.46);
+    }
+
+    .image-main {
+        display: none;
     }
 }
 
