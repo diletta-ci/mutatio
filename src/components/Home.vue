@@ -6,13 +6,13 @@
     </section>
     <section class="editor">
       <h2 class="heading-secondary">Edit your Photo</h2>
-      <div v-if="!image">
-          <form class="controls-photoupload" action=""> 
-          <label for="fileupload">Select a photo to edit</label>
+      <div v-if="!image" class="controls">
+        <form class="controls-photoupload" action=""> 
+          <label for="fileupload">Select a photo to edit</label><br />
           <input type="file" @change="onFileChange" name="fileupload" value="fileupload" id="fileupload"> 
         </form>
       </div>
-      <div v-else>
+      <div v-else class="controls">
         <button @click="removeImage">Remove image</button>
       </div>
       <div class="controls">
@@ -42,14 +42,13 @@
         <form class="controls-color__gradient">
           <h3 class="title-primary">Gradient Background</h3>
           <div class="picker">
-          <button v-on:click="changeColor" id="gradient__1" class="picker--gradient gradient__1"></button>
-          <button v-on:click="changeColor" id="gradient__2" class="picker--gradient gradient__2"></button>
-          <button v-on:click="changeColor" id="gradient__3" class="picker--gradient gradient__3"></button>
-          </div>
-          <div class="picker">
-          <button v-on:click="changeColor" id="gradient__4" class="picker--gradient gradient__4"></button>
-          <button v-on:click="changeColor" id="gradient__5" class="picker--gradient gradient__5"></button>
-          <button v-on:click="changeColor" id="gradient__6" class="picker--gradient gradient__6"></button>
+            <button 
+              class="picker--gradient"
+              v-for="gradient in gradients" 
+              :key="gradient.id" 
+              v-on:click="chooseGradient(gradient)"
+              v-bind:style="`background: linear-gradient(${gradient});`">
+              </button>
           </div>
         </form>
       </div>
@@ -57,7 +56,7 @@
         :align="textAlign"
         :vertAlign="itemAlign"
         :color="color"
-        :class="color.gradient"
+        :gradient="color.gradient"
         :image="image"
         >
           
@@ -79,12 +78,20 @@ export default {
         textColor: '',
         gradient: ''
       },
-      image: ''
+      image: '',
+      gradients: [
+        'rgba(0, 151, 167, 0.6), rgba(255, 165, 0, 0.6)',
+        '19deg, rgba(33, 212, 253, 0.6) 0%, rgba(183, 33, 255, 0.6) 100%',
+        '45deg, rgba(250, 139, 255, 0.6) 0%, rgba(43, 210, 255, 0.6) 52%, rgba(43, 255, 136, 0.6) 90%',
+        '0deg, rgba(255, 222, 233, 0.6) 0%, rgba(181, 255, 252, 0.6) 100%',
+        '19deg, rgba(62, 236, 172, 0.6) 0%, rgba(238, 116, 255, 0.6) 100%',
+        '0deg, rgba(8, 174, 234, 0.6) 0%, rgba(42, 245, 152, 0.6) 100%'
+      ]
     }
   },
   methods: {
-    changeColor(event) {
-      this.color.gradient = event.currentTarget.id;
+    chooseGradient(gradient) {
+      this.color.gradient = gradient;
     },
     onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
@@ -123,7 +130,7 @@ export default {
   .controls {
     display: flex;
     justify-content: space-around;
-    padding-bottom: 4rem;
+    padding: 1em 2em;
 
     .picker {
       display: flex;
@@ -137,7 +144,7 @@ export default {
 
     .gradient {
       &__1 {
-        background: linear-gradient(pink, orange);
+        background: linear-gradient(rgb(0, 151, 167), rgb(255, 165, 0));
       }
       &__2 {
         background: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);

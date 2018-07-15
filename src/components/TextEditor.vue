@@ -14,12 +14,13 @@
                 textAlign: align, 
                 alignItems: vertAlign,
                 color: color.textColor
-                }" >
+                }" 
+            :gradient="color.gradient"
+            >
             <preview 
                 :style="style"
                 :content="text"
-                :class="color.gradient"
-                >
+            >
             </preview>
         </div>
     </div>
@@ -41,20 +42,25 @@ import Preview from './Preview'
                 type: Object,
                 default: {}
             },
-            image: ''
+            image: '',
+            gradient: ''
         },
         component: {
             'preview': Preview
         },
         data () {
             return {
-                text: ''
+                text: '',
+                gradientChoosed: 'rgba(0, 151, 167, 0.6), rgba(255, 165, 0, 0.6)'
             }
         },
         computed: {
             style() {    
-                return `background-image: url(${this.image});`;
+                return `background-image: linear-gradient(${this.gradientChoosed}), url(${this.image});`;
             }
+        },
+        updated() {
+            return this.gradientChoosed = this.color.gradient;
         }
     }
 </script>
@@ -100,33 +106,6 @@ img {
             position: center;
         }
         box-shadow: 0 2px 8px rgba(54, 54, 54, 0.46);
-    }
-    .gradient {
-        &__1 {
-            background-image: linear-gradient(rgba(0, 151, 167, 0.6), rgba(255, 165, 0, 0.6)),
-            url('../assets/media/images/ananas.jpeg');
-        }
-        &__2 {
-            background-image: linear-gradient(19deg, rgba(33, 212, 253, 0.6) 0%, rgba(183, 33, 255, 0.6) 100%),
-            url('../assets/media/images/ananas.jpeg');
-        }
-        &__3 {
-            background-image: linear-gradient(45deg, rgba(250, 139, 255, 0.6) 0%, rgba(43, 210, 255, 0.6) 52%, rgba(43, 255, 136, 0.6) 90%),
-            url('../assets/media/images/ananas.jpeg');
-
-        }
-        &__4 {
-            background-image: linear-gradient(0deg, rgba(255, 222, 233, 0.6) 0%, rgba(181, 255, 252, 0.6) 100%),
-            url('../assets/media/images/ananas.jpeg');
-        }
-        &__5 {
-            background-image: linear-gradient(19deg, rgba(62, 236, 172, 0.6) 0%, rgba(238, 116, 255, 0.6) 100%),
-            url('../assets/media/images/ananas.jpeg');
-        }
-        &__6 {
-            background-image: linear-gradient(0deg, rgba(8, 174, 234, 0.6) 0%, rgba(42, 245, 152, 0.6) 100%),
-            url('../assets/media/images/ananas.jpeg');
-        }
     }
 }
 
