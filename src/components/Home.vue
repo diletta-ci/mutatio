@@ -22,7 +22,17 @@
         </form>
       </div>
       <div v-else class="controls">
-        <button @click="removeWatermark">Remove Watermark</button>
+        <form class="controls-watermark__position">
+          <input @click="chooseWatermarkPosition" type="radio" id="topLeft" value="topLeft" v-model="logo">
+          <label for="topLeft">Top Left</label><br>
+          <input @click="chooseWatermarkPosition" type="radio" id="topRight" value="topRight" v-model="logo">
+          <label for="topRight">Top Right</label><br>
+          <input @click="chooseWatermarkPosition" type="radio" id="bottomLeft" value="bottomLeft" v-model="logo">
+          <label for="bottomLeft">Bottom Left</label><br>
+          <input @click="chooseWatermarkPosition" type="radio" id="bottomRight" value="bottomRight" v-model="logo">
+          <label for="bottomRight">Bottom Right</label><br>
+        </form>
+        <button class="controls-watermark__remove-button" @click="removeWatermark">Remove Watermark</button>
       </div>
       <div class="controls">
         <form class="controls-align__horizontal">
@@ -68,8 +78,8 @@
         :gradient="color.gradient"
         :image="image"
         :watermark="watermark"
+        :watermark-position="watermarkPosition"
         >
-          
         </text-editor>
       <trello-board></trello-board>
     </section>
@@ -81,7 +91,12 @@ export default {
   name: 'Home',
   data () {
     return {
+      logo: '',
       sentence: '',
+      watermarkPosition: {
+        bottom: '',
+        right: ''
+      },
       textAlign: '',
       itemAlign: '',
       color: {
@@ -101,6 +116,42 @@ export default {
     }
   },
   methods: {
+    chooseWatermarkPosition(e) {
+      const valuePosition = e.path[0].value;
+      switch (valuePosition) {
+        case 'topLeft':
+          this.watermarkPosition = {
+            bottom: 'initial',
+            right: 'initial',
+          }
+          break;
+        case 'topRight':
+          this.watermarkPosition = {
+            bottom: 'initial',
+            right: 0,
+          }
+          break
+        case 'bottomLeft':
+          this.watermarkPosition = {
+            bottom: 0,
+            right: 'initial',
+          }
+          break
+        case 'bottomRight':
+          this.watermarkPosition = {
+            bottom: 0,
+            right: 0,
+          }
+          break
+        default:
+          case 'bottomRight':
+          this.watermarkPosition = {
+            bottom: 0,
+            right: 0,
+          }
+          break;
+      }
+    },
     chooseGradient(gradient) {
       this.color.gradient = gradient;
     },

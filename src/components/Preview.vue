@@ -17,7 +17,7 @@ import marked from 'marked'
             }
         },
         computed: {
-            markdownText () {
+            markdownText() {
                 return marked(this.content, { sanitize: true })
             }
         }
@@ -31,8 +31,6 @@ import marked from 'marked'
         position: relative;
         .image-watermark {
             position: absolute;
-            bottom: 0;
-            right: 0;
             width: 100px;
             height: auto;
         }

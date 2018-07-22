@@ -20,8 +20,13 @@
             <preview 
                 :style="style"
                 :content="text"
-            >
-                <img :src="watermark" class="image-watermark" />
+                :watermark-position="watermarkPosition"
+                >
+                <img 
+                    :src="watermark" 
+                    class="image-watermark" 
+                    :style="watermarkPos"
+                    />
             </preview>
         </div>
     </div>
@@ -45,12 +50,13 @@ import Preview from './Preview'
             },
             image: '',
             watermark: '',
-            gradient: ''
+            gradient: '',
+            watermarkPosition: ''
         },
         component: {
             'preview': Preview
         },
-        data () {
+        data() {
             return {
                 text: '',
                 gradientChoosed: 'rgba(0, 151, 167, 0.6), rgba(255, 165, 0, 0.6)'
@@ -59,6 +65,9 @@ import Preview from './Preview'
         computed: {
             style() {    
                 return `background-image: linear-gradient(${this.gradientChoosed}), url(${this.image});`;
+            },
+            watermarkPos() {
+                return `bottom: ${this.watermarkPosition.bottom}; right: ${this.watermarkPosition.right};`
             }
         },
         updated() {
