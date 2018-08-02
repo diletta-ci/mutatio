@@ -1,6 +1,6 @@
 <template>
     <div class="text-editor__photo-container">
-        <div class="text-editor__frame">
+        <div class="text-editor__frame" :style="{ marginTop: `${vertAlign}px` }">
             <slot />
             <div class="text-editor__preview" v-html="markdownText"></div>
         </div>
@@ -14,6 +14,10 @@ import marked from 'marked'
             content: {
                 type: String,
                 default: ''
+            },
+            vertAlign: {
+                type: String,
+                default: '0px'
             }
         },
         computed: {

@@ -46,12 +46,8 @@
         </form>
         <form class="controls-align__vertical">
           <h3 class="title-primary">Vertical Text Align</h3>
-          <input type="radio" id="start" value="flex-start" v-model="itemAlign">
-          <label for="start">Start</label><br>
-          <input type="radio" id="center" value="center" v-model="itemAlign">
-          <label for="center">Center</label><br>
-          <input type="radio" id="bottom" value="flex-end" v-model="itemAlign">
-          <label for="bottom">Bottom</label><br>
+          <label for="marginTop">Margin Top</label><br>
+          <input type="number" id="marginTop" value="marginTop" v-model="itemAlign">
         </form>
         <form class="controls-color__text">
           <h3 class="title-primary">Text Color</h3>

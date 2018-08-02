@@ -11,17 +11,17 @@
         </textarea>
         <div
             :style="{
-                textAlign: align, 
-                alignItems: vertAlign,
+                textAlign: align,
                 color: color.textColor
                 }" 
             :gradient="color.gradient"
-            >
+        >
             <preview 
                 :style="style"
                 :content="text"
                 :watermark-position="watermarkPosition"
-                >
+                :vertAlign="vertAlign"
+            >
                 <img 
                     :src="watermark" 
                     class="image-watermark" 
