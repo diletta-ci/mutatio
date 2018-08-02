@@ -1,5 +1,5 @@
 <template>
-    <div class="text-editor__photo-container">
+    <div class="text-editor__photo-container" id="captureImage">
         <div class="text-editor__frame" :style="{ marginTop: `${vertAlign}px` }">
             <slot />
             <div class="text-editor__preview" v-html="markdownText"></div>

@@ -67,22 +67,27 @@
           </div>
         </form>
       </div>
-      <text-editor
-        :align="textAlign"
-        :vertAlign="itemAlign"
-        :color="color"
-        :gradient="color.gradient"
-        :image="image"
-        :watermark="watermark"
-        :watermark-position="watermarkPosition"
-        >
-        </text-editor>
+        <text-editor
+          :align="textAlign"
+          :vertAlign="itemAlign"
+          :color="color"
+          :gradient="color.gradient"
+          :image="image"
+          :watermark="watermark"
+          :watermark-position="watermarkPosition"
+          >
+          </text-editor>
       <trello-board></trello-board>
+    </section>
+    <section class="get-image">
+      <button @click="getImage">Get Your Image Mutatio</button>
     </section>
   </div>
 </template>
 
 <script>
+import html2canvas from 'html2canvas';
+
 export default {
   name: 'Home',
   data () {
@@ -190,6 +195,17 @@ export default {
     },
     removeWatermark: function (e) {
       this.watermark = '';
+    },
+    getImage() {
+      console.log('smile :)');
+      html2canvas(document.querySelector("#captureImage")).then(canvas => {
+        document.body.appendChild(canvas);
+        const img = canvas.toDataURL();
+        window.open(img);
+      }).catch((error) => {
+        console.log('Error: you didnt smile enough :(')
+        alert('Error: you didnt smile enough :(')
+      });
     }
   }
 }
@@ -203,8 +219,7 @@ export default {
 }
 
 .editor {
-  height: 800px;
-  padding-top: 10rem;
+  padding: 10rem auto;
 
   .controls {
     display: flex;
@@ -241,6 +256,16 @@ export default {
         background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
       }
     }
+  }
+}
+
+.get-image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20em;
+  button {
+    width: 30em;
+    height: 4em;
   }
 }
 </style>
