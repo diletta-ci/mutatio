@@ -96,7 +96,7 @@ import Preview from './Preview'
         height: 600px;
         padding: 20px;
         &::placeholder {
-            color: white;
+            color: $primary-background;
         }
     }
 
