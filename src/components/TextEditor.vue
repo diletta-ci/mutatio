@@ -59,7 +59,7 @@ import Preview from './Preview'
         data() {
             return {
                 text: '',
-                gradientChoosed: 'rgba(0, 151, 167, 0.6), rgba(255, 165, 0, 0.6)'
+                gradientChoosed: '45deg, rgba(44, 62, 80, 0.6) 0%, rgba(52, 152, 219, 0.6) 90%'
             }
         },
         computed: {
