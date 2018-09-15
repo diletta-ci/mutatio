@@ -5,34 +5,81 @@
       <h2 class="heading-secondary__light">UI Photo Editor</h2>
     </section>
     <section class="editor">
-      <h2 class="heading-secondary">Edit your Photo</h2>
-      <div v-if="!image" class="controls">
-        <form class="controls-photoupload" action=""> 
-          <label for="fileupload">Select a photo to edit</label><br />
-          <input type="file" @change="onFileChange" name="fileupload" value="fileupload" id="fileupload"> 
-        </form>
-      </div>
-      <div v-else class="controls">
-        <button @click="removeImage">Remove image</button>
-      </div>
-      <div v-if="!watermark" class="controls">
-        <form class="controls-watermark" action="">
-          <label for="watermark">Watermark</label><br />
-          <input type="file" @change="onFileChange" name="watermark" id="watermark">
-        </form>
-      </div>
-      <div v-else class="controls">
-        <form class="controls-watermark__position">
-          <input @click="chooseWatermarkPosition" type="radio" id="topLeft" value="topLeft" v-model="logo">
-          <label for="topLeft">Top Left</label><br>
-          <input @click="chooseWatermarkPosition" type="radio" id="topRight" value="topRight" v-model="logo">
-          <label for="topRight">Top Right</label><br>
-          <input @click="chooseWatermarkPosition" type="radio" id="bottomLeft" value="bottomLeft" v-model="logo">
-          <label for="bottomLeft">Bottom Left</label><br>
-          <input @click="chooseWatermarkPosition" type="radio" id="bottomRight" value="bottomRight" v-model="logo">
-          <label for="bottomRight">Bottom Right</label><br>
-        </form>
-        <button class="controls-watermark__remove-button" @click="removeWatermark">Remove Watermark</button>
+      <h2 class="heading-secondary">Edit Your Photo</h2>
+      <div class="controls-wrapper">
+        <div class="controls">
+          <form class="controls-color__gradient">
+            <h3 class="title-primary">Gradient Background</h3>
+            <div class="picker">
+              <button 
+                class="picker--gradient"
+                v-for="gradient in gradients" 
+                :key="gradient.id" 
+                v-on:click="chooseGradient(gradient)"
+                v-bind:style="`background: linear-gradient(${gradient});`">
+                </button>
+            </div>
+          </form>
+        </div>
+        <div v-if="!image" class="controls controls-uploading">
+          <h3 class="title-primary">Background Image</h3>
+          <form class="controls-photoupload" action=""> 
+            <label for="fileupload" class="controls-photoupload__label">
+              Select a Photo
+            </label>
+              <input 
+                class="controls-photoupload__input" 
+                type="file" 
+                @change="onFileChange" 
+                name="fileupload" 
+                value="fileupload" 
+                id="fileupload"
+              > 
+          </form>
+        </div>
+        <div v-else class="controls controls-uploading">
+          <h3 class="title-primary">Delete Image</h3>
+          <button 
+            @click="removeImage"
+            class="controls btn button-secondary button-delete"
+          >
+            Delete
+          </button>
+        </div>
+        <div v-if="!watermark" class="controls controls-uploading">
+          <h1 class="title-primary">Watermark</h1>
+          <form class="controls-watermark" action="">
+            <label for="watermark" class="controls-watermark__label">
+              Watermark
+            </label>
+            <input 
+              type="file" 
+              @change="onFileChange" 
+              name="watermark" 
+              id="watermark"
+              class="controls-watermark__input"
+            >
+          </form>
+        </div>
+        <div v-else class="controls controls-uploading">
+          <h3 class="title-primary">Watermark Position</h3>
+          <form class="controls-watermark__position">
+            <input @click="chooseWatermarkPosition" type="radio" id="topLeft" value="topLeft" v-model="logo">
+            <label for="topLeft">Top Left</label><br>
+            <input @click="chooseWatermarkPosition" type="radio" id="topRight" value="topRight" v-model="logo">
+            <label for="topRight">Top Right</label><br>
+            <input @click="chooseWatermarkPosition" type="radio" id="bottomLeft" value="bottomLeft" v-model="logo">
+            <label for="bottomLeft">Bottom Left</label><br>
+            <input @click="chooseWatermarkPosition" type="radio" id="bottomRight" value="bottomRight" v-model="logo">
+            <label for="bottomRight">Bottom Right</label><br>
+          </form>
+          <button 
+            class="controls controls-watermark__remove-button btn button-secondary button-delete" 
+            @click="removeWatermark"
+          >
+            Delete Watermark
+          </button>
+        </div>
       </div>
       <div class="controls">
         <form class="controls-align__horizontal">
@@ -51,21 +98,10 @@
         </form>
         <form class="controls-color__text">
           <h3 class="title-primary">Text Color</h3>
+          <label for="textColor">Choose the text color</label>
           <input type="color" id="textColor" v-model="color.textColor">
-          <label for="textColor">Choose the text color</label><br>
         </form>
-        <form class="controls-color__gradient">
-          <h3 class="title-primary">Gradient Background</h3>
-          <div class="picker">
-            <button 
-              class="picker--gradient"
-              v-for="gradient in gradients" 
-              :key="gradient.id" 
-              v-on:click="chooseGradient(gradient)"
-              v-bind:style="`background: linear-gradient(${gradient});`">
-              </button>
-          </div>
-        </form>
+        
       </div>
         <text-editor
           :align="textAlign"
@@ -80,16 +116,26 @@
       <trello-board></trello-board>
     </section>
     <section class="get-image">
-      <button @click="getImage">Get Your Image Mutatio</button>
+      <button 
+        @click="getImage"
+        class="btn button-primary"
+      >
+        Get Your Image Mutatio
+      </button>
     </section>
+    <footer-signature/>
   </div>
 </template>
 
 <script>
 import html2canvas from 'html2canvas';
+import FooterSignature from '../components/FooterSignature';
 
 export default {
   name: 'Home',
+  components: {
+    FooterSignature
+  },
   data () {
     return {
       logo: '',
@@ -226,10 +272,56 @@ export default {
 .editor {
   padding: 10rem auto;
 
+  .controls-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    .controls-uploading {
+      display: flex;
+      flex-direction: column;
+      .button-delete {
+        &::before {
+          content: '';
+          width: 2em;
+          height: 2em;
+          background-image: url(../assets/media/icons/delete_forever_white.png);
+          background-size: contain;
+          background-repeat: no-repeat;
+          color: transparent;
+        }
+      }
+    }
+  }
+
   .controls {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     padding: 1em 2em;
+
+    &-photoupload, &-watermark {
+      &__label {
+        cursor: pointer;
+        padding: 1em;
+        border-radius: 2em;
+        border: 0;
+        font-size: 1em;
+        text-align: center;
+        color: $primary-background;
+        background: $primary-color;
+        &::before {
+          content: 'con';
+          width: 2em;
+          height: 2em;
+          background-image: url(../assets/media/icons/upload_white.png);
+          background-size: contain;
+          background-repeat: no-repeat;
+          color: transparent;
+        }
+      }
+      &__input {
+        display: none;
+      }
+    }
 
     .picker {
       display: flex;
@@ -259,6 +351,30 @@ export default {
       }
       &__6 {
         background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
+      }
+    }
+
+    &-align {
+      &__vertical, &__text {
+        input[type=number], input[type=color] {
+            border: $primary-color 1px solid;
+            border-radius: 5em;
+            padding: 1em;
+        }
+      }
+    }
+    &-color {
+      &__text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        input[type=color] {
+            min-width: 10em;
+            min-height: 3em;
+            border: $primary-color 1px solid;
+            border-radius: 5em;
+            padding: 1em;
+        }
       }
     }
   }

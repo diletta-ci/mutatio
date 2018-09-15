@@ -90,7 +90,7 @@ import Preview from './Preview'
         font: inherit;
         outline: none;
         resize: none;
-        background: $primary-color-dark;
+        background: $primary-color;
         color: $primary-color-text;
         width: 30%;
         height: 600px;

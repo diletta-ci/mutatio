@@ -16,3 +16,23 @@ body {
     box-sizing: border-box;
     background-color: $primary-background;
 }
+
+
+.btn {
+    padding: 0.5em;
+    border-radius: 2em;
+    border: 0;
+    font-size: 0.9em;
+    text-align: center;
+    min-width: 10em;
+    
+}
+.button-primary {
+    color: $primary-background;
+    background: $primary-color;
+}
+
+.button-secondary {
+    color: $primary-background;
+    background: $primary-color-dark;
+}
